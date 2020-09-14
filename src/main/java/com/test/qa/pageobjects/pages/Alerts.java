@@ -11,4 +11,7 @@ import com.test.qa.pageobjects.utils.PageBase;
  * 10/3/2018.
  */
 public class Alerts extends PageBase {
+    public static void main(String[] args) throws Exception {
+        
+    }
 }
