@@ -12,6 +12,6 @@ import com.test.qa.pageobjects.utils.PageBase;
  */
 public class Alerts extends PageBase {
     public static void main(String[] args) throws Exception {
-        
+        System.out.println("Hello");
     }
 }
