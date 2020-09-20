@@ -11,13 +11,13 @@ import com.test.qa.pageobjects.pages.HomePage;
 import com.test.qa.pageobjects.pages.LoginPage;
 import com.test.qa.pageobjects.pages.LoginSecurePage;
 import com.test.qa.pageobjects.utils.Constants;
-import com.test.qa.testdata.UserDetailsDataProvider;
 import com.test.qa.utils.TestBase;
 
 /**
  * UiAutomationTrainingBasicTest.java - class to execute Tests Created by
  * SrirankanK on 10/3/2018.
  */
+@SuppressWarnings("JavaDoc")
 public class UiAutomationTrainingBasicTest extends TestBase {
 
 	/**
@@ -155,6 +155,21 @@ public class UiAutomationTrainingBasicTest extends TestBase {
         //Todo - Verify Login Page Displayed
         //Todo - Verify Logout Alert Displayed
         //Todo - Verify Logout  Alert Message Content
+
+		softAssert = new SoftAssert();
+        softAssert.assertTrue(HomePage.isHomePageDisplayed(), "Home Page is not Displayed");
+        HomePage.clickLink(Constants.LOGIN_LINK);
+        LoginPage.setUserName(Constants.LOGIN_USER_NAME);
+        LoginPage.setUserPassword(Constants.LOGIN_PASSWORD);
+        LoginPage.onClickSubmitButton();
+        softAssert.assertTrue(LoginSecurePage.isLoginSecurePageDisplayed(),"Login Secure Page is not displayed");
+        softAssert.assertTrue(LoginSecurePage.isLoginAlertDisplayed(),"Login Alert is not displayed");
+        softAssert.assertTrue(LoginSecurePage.getLoginAlertMessage().contains(Constants.LOGIN_SUCCESS_MSG),"Login Alert message is incorrect");
+        LoginSecurePage.onClickLogoutButton();
+        softAssert.assertTrue(LoginPage.isLoginPageDisplayed(),"Login Page is not displayed");
+        softAssert.assertTrue(LoginPage.isLoginAlertDisplayed(),"Logout Alert not displayed");
+        softAssert.assertTrue(LoginPage.getLoginAlertMessage().contains(Constants.LOGOUT_SUCCESS_MSG),"Logout message is incorrect");
+        softAssert.assertAll();
 	}
 
 	/**
@@ -168,5 +183,14 @@ public class UiAutomationTrainingBasicTest extends TestBase {
         //Todo - Click Submit
         //Todo - Verify Invalid Login Alert Displayed
         //Todo - Verify Invalid Login  Alert Message Content
+		softAssert = new SoftAssert();
+		softAssert.assertTrue(HomePage.isHomePageDisplayed(), "Home Page is not Displayed");
+		HomePage.clickLink(Constants.LOGIN_LINK);
+		LoginPage.setUserName(Constants.LOGIN_INVALID_USER_NAME);
+		LoginPage.setUserPassword(Constants.LOGIN_INVALID_PASSWORD);
+		LoginPage.onClickSubmitButton();
+		softAssert.assertTrue(LoginPage.isLoginAlertDisplayed(),"Login Alert not displayed");
+		softAssert.assertTrue(LoginPage.getLoginAlertMessage().contains(Constants.LOGIN_INVALID_MSG),"Login message is incorrect");
+		softAssert.assertAll();
 	}
 }
